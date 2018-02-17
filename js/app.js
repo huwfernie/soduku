@@ -1,4 +1,6 @@
-console.log('Hello Huw');
+/*
+This app handles the drag and drop event / event listeners for the number list
+*/
 
 
 $(() => {
@@ -17,25 +19,27 @@ $(() => {
   const allDragTargets = document.getElementsByClassName('square');
   for(let i=0; i<allDragTargets.length; i++){
     allDragTargets[i].addEventListener('dragenter', handleDragEnter, false);
-    // allDragTargets[i].addEventListener('dragover', handleDragOver, false);
+    allDragTargets[i].addEventListener('dragover', handleDragOver, false);
     allDragTargets[i].addEventListener('dragleave', handleDragLeave, false);
     allDragTargets[i].addEventListener('drop', handleDrop, false);
     allDragTargets[i].addEventListener('dragend', handleDragEnd, false);
   }
 
   function handleDragEnter(e) {
-    // this / e.target is the current hover target.
     e.target.classList.add('over');
   }
 
+  function handleDragOver(e) {
+    e.preventDefault();
+  }
+
   function handleDragLeave(e) {
-    e.target.classList.remove('over');  // this / e.target is previous target element.
+    e.target.classList.remove('over');
   }
 
   function handleDrop(e) {
-    // this / e.target is current target element.
     if (e.stopPropagation) {
-      e.stopPropagation(); // stops the browser from redirecting.
+      e.stopPropagation();
     }
     this.innerHTML = e.dataTransfer.getData('text/html');
     handleDragEnd();
