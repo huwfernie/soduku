@@ -1,7 +1,43 @@
 body * {
   box-sizing: border-box;
+  font-family: 'Indie Flower', cursive;
+  font-size: 15px;
+}
+/* -------- *\
+  The Aside - heading and instructions
+\* --------*/
+aside {
+  width: 30%;
+  text-align: center;
 }
 
+h1 {
+  font-size: 50px;
+  margin: 0;
+}
+
+.numberList ul {
+  list-style: none;
+  margin-left: 50%;
+  transform:translateX(-50%);
+}
+
+.numberList li {
+  border: 1px dashed green;
+  border-radius: 5px;
+  width:60px;
+  height:60px;
+  line-height: 60px;
+  font-size: 40px;
+  margin-bottom: 5px;
+}
+/* -------- *\
+  End of The Aside
+\* --------*/
+
+/* -------- *\
+  The board
+\* --------*/
 .container {
   border: 1px solid black;
   height: 548px;
@@ -28,3 +64,6 @@ body * {
   width: 60px;
   float: left;
 }
+/* -------- *\
+  End of The board
+\* --------*/
