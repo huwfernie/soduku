@@ -30,10 +30,12 @@ h1 {
   line-height: 60px;
   font-size: 40px;
   margin-bottom: 5px;
+  cursor: move;
 }
 
 aside button {
-  background: red;
+  background: #f5ebeb;
+  border-radius: 3px;
 }
 /* -------- *\
   End of The Aside
@@ -67,6 +69,10 @@ aside button {
   height: 60px;
   width: 60px;
   float: left;
+}
+
+.square.over {
+  background: blue;
 }
 /* -------- *\
   End of The board
