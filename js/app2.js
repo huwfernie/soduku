@@ -28,6 +28,8 @@ function random(){
     if(elem>0) {
       console.log(elem);
       squares[index].innerHTML = elem;
+      squares[index].classList.add('fixed');
+      // add something here that stops you being able to drop numbers into it?
     }
   });
 }

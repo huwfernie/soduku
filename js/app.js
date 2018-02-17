@@ -26,7 +26,9 @@ $(() => {
   }
 
   function handleDragEnter(e) {
-    e.target.classList.add('over');
+    if(!e.target.classList.contains('fixed')){
+      e.target.classList.add('over');
+    }
   }
 
   function handleDragOver(e) {
@@ -34,14 +36,19 @@ $(() => {
   }
 
   function handleDragLeave(e) {
-    e.target.classList.remove('over');
+    if(e.target.classList.contains('over')){
+      e.target.classList.remove('over');
+    }
   }
 
   function handleDrop(e) {
     if (e.stopPropagation) {
       e.stopPropagation();
     }
-    this.innerHTML = e.dataTransfer.getData('text/html');
+    if(!e.target.classList.contains('fixed')){
+      this.innerHTML = e.dataTransfer.getData('text/html');
+      e.target.classList.add('fixed');
+    }
     handleDragEnd();
     return false;
   }
