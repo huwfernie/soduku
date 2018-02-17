@@ -1,3 +1,30 @@
-body {
-  background-color: lightsalmon;
+body * {
+  box-sizing: border-box;
+}
+
+.container {
+  border: 1px solid black;
+  height: 548px;
+  width: 548px;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform:translate(-50%,-50%);
+}
+
+.box {
+  border: 1px solid blue;
+  height: 182px;
+  width: 182px;
+  float: left;
+}
+
+.square {
+  border: 1px dashed red;
+  height: 60px;
+  width: 60px;
+  float: left;
 }
