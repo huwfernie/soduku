@@ -31,6 +31,10 @@ h1 {
   font-size: 40px;
   margin-bottom: 5px;
 }
+
+aside button {
+  background: red;
+}
 /* -------- *\
   End of The Aside
 \* --------*/
