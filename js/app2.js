@@ -21,15 +21,13 @@ function random(){
   game = game.replace(/,/g,'');
   console.log('should be 81: ',game.length);
   game = game.split('');
-  console.log(game);
 
+  /*loop through all the squares, add a number to the HTML and a class of fixed to any number > 0.*/
   const squares = document.getElementsByClassName('square');
   game.forEach((elem,index)=>{
     if(elem>0) {
-      console.log(elem);
       squares[index].innerHTML = elem;
       squares[index].classList.add('fixed');
-      // add something here that stops you being able to drop numbers into it?
     }
   });
 }

@@ -4,18 +4,25 @@ This app handles the drag and drop event / event listeners for the number list
 
 
 $(() => {
-// run this on load!!
+  // a boolian - true when a user is draging number 0/clear.
+  let dragZero = false;
+
+  /*Add a drag event listener to the list of numbers */
   const allDragObjects = document.getElementsByClassName('drag');
   for(let i=0; i<allDragObjects.length; i++){
     allDragObjects[i].addEventListener('dragstart', handleDragStart, false);
   }
 
   function handleDragStart(e){
-    console.log('dragstart');
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/html', this.innerHTML);
+    if(this.innerHTML===''){
+      dragZero = true;
+    }
   }
+  /* End add a drag listener to the list of numbers */
 
+  /*Add an event listener to all the drag targets */
   const allDragTargets = document.getElementsByClassName('square');
   for(let i=0; i<allDragTargets.length; i++){
     allDragTargets[i].addEventListener('dragenter', handleDragEnter, false);
@@ -26,7 +33,7 @@ $(() => {
   }
 
   function handleDragEnter(e) {
-    if(!e.target.classList.contains('fixed')){
+    if(!e.target.classList.contains('fixed') || (e.target.classList.contains('fixedUser') && dragZero)){
       e.target.classList.add('over');
     }
   }
@@ -47,7 +54,7 @@ $(() => {
     }
     if(!e.target.classList.contains('fixed')){
       this.innerHTML = e.dataTransfer.getData('text/html');
-      e.target.classList.add('fixed');
+      e.target.classList.add('fixedUser');
     }
     handleDragEnd();
     return false;
@@ -57,6 +64,8 @@ $(() => {
     [].forEach.call(allDragTargets, function (col) {
       col.classList.remove('over');
     });
+    dragZero = false;
   }
+  /*end add an event listener to all the drag targets*/
 
 });
