@@ -16,7 +16,7 @@ $(() => {
   function handleDragStart(e){
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/html', this.innerHTML);
-    if(this.innerHTML===''){
+    if(this.innerHTML==='-'){
       dragZero = true;
     }
   }

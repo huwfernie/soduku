@@ -16,10 +16,24 @@ h1 {
   margin: 0;
 }
 
+.instructions {
+  width: 100%;
+  padding: 20px;
+}
+
+.menu {
+  width: 100%;
+  min-height: 20px;
+  border-radius: 5px;
+  padding: 3px 0;
+}
+
 .numberList ul {
+  width: 130px;
   list-style: none;
-  margin-left: 50%;
-  transform:translateX(-50%);
+  padding: 0;
+  padding-top: 20px;
+  margin: 0 auto;
 }
 
 .numberList li {
@@ -31,6 +45,10 @@ h1 {
   font-size: 40px;
   margin-bottom: 5px;
   cursor: move;
+  display: inline-block;
+}
+.numberList li:first-child {
+  color: white;
 }
 
 aside button {

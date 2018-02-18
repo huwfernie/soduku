@@ -14,13 +14,23 @@
     <aside>
       <h1>Sudoku Solver</h1>
       <p class="instructions">
+        Choose to fill the board with your own numbers, or play a random game.
       </p>
-      <button id="placeNumbers">Place your own numbers</button>
-      <button id="randomGame">Random Game</button>
-      <button id="solveGame">Solve Game</button>
+      <div class="menu">
+        <button id="placeNumbers">Place your own numbers</button>
+        <button id="randomGame">Random Game</button>
+      </div>
+      <div class="menu option1">
+        <button id="startGame">Start Game</button>
+        <button id="resetGame">Reset Game</button>
+      </div>
+      <div class="menu option2">
+        <button id="solveOneNumber">Solve One Number</button>
+        <button id="solveGame">Solve Game</button>
+      </div>
       <div class="numberList">
         <ul>
-          <li class="drag" draggable="true" ></li>
+          <li class="drag" draggable="true" > </li>
           <li class="drag" draggable="true" >1</li>
           <li class="drag" draggable="true" >2</li>
           <li class="drag" draggable="true" >3</li>
