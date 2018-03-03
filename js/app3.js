@@ -6,23 +6,28 @@ $(() => {
   const solveGameButton = document.getElementById('solveGame');
   const solveOneNumberButton = document.getElementById('solveOneNumber');
   const squares = document.getElementsByClassName('square');
-  let box1 = document.getElementById('box_1').childNodes;
-  box1 = reduce(box1);
-  function reduce(box) {
-    box = Array.from(box);
-    const badIndexes=[];
-    for(let i=0; i<box.length;i++){
-      if(box[i].nodeName==='#text'){
-        badIndexes.push(i);
+  const box1Elements = getBox('box_1');
+
+  function getBox(box){
+    let box1 = document.getElementById(box).childNodes;
+    box1 = reduce(box1);
+    function reduce(box) {
+      box = Array.from(box);
+      const badIndexes=[];
+      for(let i=0; i<box.length;i++){
+        if(box[i].nodeName==='#text'){
+          badIndexes.push(i);
+        }
       }
+      badIndexes.reverse();
+      badIndexes.forEach((index)=>{
+        box.splice(index,1);
+      });
+      return box;
     }
-    badIndexes.reverse();
-    badIndexes.forEach((index)=>{
-      box.splice(index,1);
-    });
-    return box;
+    return box1;
   }
-  
+
   solveGameButton.addEventListener('click', ()=>{
     solveGame();
   });
@@ -51,6 +56,7 @@ $(() => {
   }
 
   const options = [];
+  let boxOptions = {};
   function buildStartArray() {
     console.log('buildStartArray');
     [].forEach.call(squares,(square,index)=>{
@@ -67,11 +73,44 @@ $(() => {
       options.push({x,y,possibleValues,value});
     });
     console.log(options);
+    boxOptions = {
+      box1: options.slice(0,9),
+      box2: options.slice(9,18),
+      box3: options.slice(18,27),
+      box4: options.slice(27,36),
+      box5: options.slice(36,45),
+      box6: options.slice(45,54),
+      box7: options.slice(54,63),
+      box8: options.slice(63,72),
+      box9: options.slice(72,81)
+    };
     return;
   }
 
   function searchByBox() {
-    console.log('hello',box1);
+    // see if any squares in the box have a value, if they do, remove that value from
+    // any of the other squares-options' in the box.
+    console.log('hello',box1Elements,boxOptions.box1);
+    const usedNumbers = [];
+    boxOptions.box1.forEach((elem)=>{
+      if(elem.value){
+        usedNumbers.push(elem.value);
+      }
+    });
+    usedNumbers.sort();
+    usedNumbers.reverse();
+    boxOptions.box1.forEach((elem)=>{
+      if(!elem.value){
+        usedNumbers.forEach((number)=>{
+          number = parseInt(number);
+          var index = elem.possibleValues.indexOf(number);
+          if(index>=0){
+            elem.possibleValues.splice(index, 1);
+          }
+        });
+      }
+    });
+
   }
 
   // this isn't working as planned - work on it later.
