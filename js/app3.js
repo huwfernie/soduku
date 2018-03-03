@@ -57,6 +57,28 @@ $(() => {
 
   const options = [];
   let boxOptions = {};
+  const rowOptions = {
+    row1: [],
+    row2: [],
+    row3: [],
+    row4: [],
+    row5: [],
+    row6: [],
+    row7: [],
+    row8: [],
+    row9: []
+  };
+  const colOptions = {
+    col1: [],
+    col2: [],
+    col3: [],
+    col4: [],
+    col5: [],
+    col6: [],
+    col7: [],
+    col8: [],
+    col9: []
+  };
   function buildStartArray() {
     console.log('buildStartArray');
     [].forEach.call(squares,(square,index)=>{
@@ -84,6 +106,17 @@ $(() => {
       box8: options.slice(63,72),
       box9: options.slice(72,81)
     };
+    console.log(options);
+    options.forEach((option)=>{
+      const y = option.y;
+      const thisRow = `row${y}`;
+      rowOptions[thisRow].push(option);
+      const x = option.x;
+      const thisCol = `col${x}`;
+      colOptions[thisCol].push(option);
+    });
+    console.log(rowOptions,'rowOptions');
+    console.log(colOptions,'colOptions');
     return;
   }
 
