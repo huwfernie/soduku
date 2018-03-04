@@ -95,6 +95,10 @@ aside button {
 .square.over {
   background: #afdcdb;
 }
+
+.fixedComp {
+  background: red;
+}
 /* -------- *\
   End of The board
 \* --------*/

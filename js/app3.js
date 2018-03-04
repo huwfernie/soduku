@@ -6,27 +6,27 @@ $(() => {
   const solveGameButton = document.getElementById('solveGame');
   const solveOneNumberButton = document.getElementById('solveOneNumber');
   const squares = document.getElementsByClassName('square');
-  const box1Elements = getBox('box_1');
-
-  function getBox(box){
-    let box1 = document.getElementById(box).childNodes;
-    box1 = reduce(box1);
-    function reduce(box) {
-      box = Array.from(box);
-      const badIndexes=[];
-      for(let i=0; i<box.length;i++){
-        if(box[i].nodeName==='#text'){
-          badIndexes.push(i);
-        }
-      }
-      badIndexes.reverse();
-      badIndexes.forEach((index)=>{
-        box.splice(index,1);
-      });
-      return box;
-    }
-    return box1;
-  }
+  // const box1Elements = getBox('box_1');
+  //
+  // function getBox(box){
+  //   let box1 = document.getElementById(box).childNodes;
+  //   box1 = reduce(box1);
+  //   function reduce(box) {
+  //     box = Array.from(box);
+  //     const badIndexes=[];
+  //     for(let i=0; i<box.length;i++){
+  //       if(box[i].nodeName==='#text'){
+  //         badIndexes.push(i);
+  //       }
+  //     }
+  //     badIndexes.reverse();
+  //     badIndexes.forEach((index)=>{
+  //       box.splice(index,1);
+  //     });
+  //     return box;
+  //   }
+  //   return box1;
+  // }
 
   solveGameButton.addEventListener('click', ()=>{
     solveGame();
@@ -48,11 +48,26 @@ $(() => {
   function solveOneNumber(){
     console.log('solveOneNumber');
     if(options.length===0){
+      console.log('go 1');
       buildStartArray();
-      searchByBox();
+      searchByBox(boxOptions.box1);
+      searchByBox(colOptions.col1);
+      searchByBox(rowOptions.row1);
+      console.log(options);
     } else {
-      //findANumber();
+      console.log('go 2');
+      searchAll();
+      console.log(options);
     }
+  }
+
+  function searchAll() {
+    for(let i=9;i>=1;i--){
+      searchByBox(boxOptions[`box${i}`]);
+      searchByBox(colOptions[`col${i}`]);
+      searchByBox(rowOptions[`row${i}`]);
+    }
+    return;
   }
 
   const options = [];
@@ -94,7 +109,7 @@ $(() => {
       }
       options.push({x,y,possibleValues,value});
     });
-    console.log(options);
+    // console.log(options);
     boxOptions = {
       box1: options.slice(0,9),
       box2: options.slice(9,18),
@@ -106,7 +121,6 @@ $(() => {
       box8: options.slice(63,72),
       box9: options.slice(72,81)
     };
-    console.log(options);
     options.forEach((option)=>{
       const y = option.y;
       const thisRow = `row${y}`;
@@ -115,24 +129,23 @@ $(() => {
       const thisCol = `col${x}`;
       colOptions[thisCol].push(option);
     });
-    console.log(rowOptions,'rowOptions');
-    console.log(colOptions,'colOptions');
     return;
   }
 
-  function searchByBox() {
+  function searchByBox(inputBox) {
     // see if any squares in the box have a value, if they do, remove that value from
     // any of the other squares-options' in the box.
-    console.log('hello',box1Elements,boxOptions.box1);
+    // the same logic will work for rows and cols.
+    console.log('searchByBox',inputBox);
     const usedNumbers = [];
-    boxOptions.box1.forEach((elem)=>{
+    inputBox.forEach((elem)=>{
       if(elem.value){
         usedNumbers.push(elem.value);
       }
     });
     usedNumbers.sort();
     usedNumbers.reverse();
-    boxOptions.box1.forEach((elem)=>{
+    inputBox.forEach((elem)=>{
       if(!elem.value){
         usedNumbers.forEach((number)=>{
           number = parseInt(number);
@@ -140,26 +153,22 @@ $(() => {
           if(index>=0){
             elem.possibleValues.splice(index, 1);
           }
+          if(elem.possibleValues.length===1){
+            elem.value = elem.possibleValues[0];
+            foundNumber(elem);
+          }
         });
       }
     });
-
+    return;
   }
 
-  // this isn't working as planned - work on it later.
-  // function findANumber() {
-  //   console.log('findANumber');
-  //   const temp = [];
-  //   console.log('round 2');
-  //   options.forEach((option)=>{
-  //     if(option.x==='1'){
-  //       temp.push(option);
-  //     }
-  //     temp.forEach(()=>{
-  //
-  //     });
-  //   });
-  // }
-
+  function foundNumber(elem){
+    console.log('foundNumber');
+    const id = `${elem.x}_${elem.y}`;
+    const square = document.getElementById(id);
+    square.innerHTML = elem.value;
+    square.classList.add('fixedComp');
+  }
 
 });
