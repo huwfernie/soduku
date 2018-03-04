@@ -90,6 +90,7 @@ aside button {
   line-height: 60px;
   font-size: 40px;
   text-align: center;
+  transition: background 2s;
 }
 
 .square.over {

@@ -6,27 +6,6 @@ $(() => {
   const solveGameButton = document.getElementById('solveGame');
   const solveOneNumberButton = document.getElementById('solveOneNumber');
   const squares = document.getElementsByClassName('square');
-  // const box1Elements = getBox('box_1');
-  //
-  // function getBox(box){
-  //   let box1 = document.getElementById(box).childNodes;
-  //   box1 = reduce(box1);
-  //   function reduce(box) {
-  //     box = Array.from(box);
-  //     const badIndexes=[];
-  //     for(let i=0; i<box.length;i++){
-  //       if(box[i].nodeName==='#text'){
-  //         badIndexes.push(i);
-  //       }
-  //     }
-  //     badIndexes.reverse();
-  //     badIndexes.forEach((index)=>{
-  //       box.splice(index,1);
-  //     });
-  //     return box;
-  //   }
-  //   return box1;
-  // }
 
   solveGameButton.addEventListener('click', ()=>{
     solveGame();
@@ -44,21 +23,21 @@ $(() => {
   when the array of possible values is reduced to 1, the final value is set.
 
   */
-
   function solveOneNumber(){
     console.log('solveOneNumber');
     if(options.length===0){
       console.log('go 1');
       buildStartArray();
-      searchByBox(boxOptions.box1);
-      searchByBox(colOptions.col1);
-      searchByBox(rowOptions.row1);
-      console.log(options);
+      searchAll();
+      // console.log(options);
     } else {
       console.log('go 2');
+      removeFoundSquareClass();
+      console.log('go 3');
       searchAll();
-      console.log(options);
     }
+    // console.log(options);
+    return;
   }
 
   function searchAll() {
@@ -136,7 +115,7 @@ $(() => {
     // see if any squares in the box have a value, if they do, remove that value from
     // any of the other squares-options' in the box.
     // the same logic will work for rows and cols.
-    console.log('searchByBox',inputBox);
+    // console.log('searchByBox',inputBox);
     const usedNumbers = [];
     inputBox.forEach((elem)=>{
       if(elem.value){
@@ -163,12 +142,25 @@ $(() => {
     return;
   }
 
+  const foundSquares = [];
   function foundNumber(elem){
-    console.log('foundNumber');
     const id = `${elem.x}_${elem.y}`;
+    console.log('foundNumber', id, elem.value);
     const square = document.getElementById(id);
-    square.innerHTML = elem.value;
     square.classList.add('fixedComp');
+    square.innerHTML = elem.value;
+    foundSquares.push(square);
+    return;
+  }
+
+  function  removeFoundSquareClass(){
+    console.log('removeFoundSquareClass',foundSquares,foundSquares.length);
+    for(let i=0;i<foundSquares.length;i++){
+      const square=foundSquares[i];
+      console.log(`removing ${square.id}`);
+      square.classList.add('fixed');
+      square.classList.remove('fixedComp');
+    }
   }
 
 });
